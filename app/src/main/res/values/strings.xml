@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie</string>
+    <string name="news">News</string>
+    <string name="count">7.7</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="spider_man">Spider-Man: Far from Home
+                                    2019-06-28</string>
+    <string name="loading">Загрузка</string>
+</resources>
