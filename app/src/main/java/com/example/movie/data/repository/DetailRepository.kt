@@ -1,14 +1,21 @@
 package com.example.movie.data.repository
 
-import android.app.Application
-import com.example.movie.remote.ApiConstants
-import com.example.movie.utils.base.BaseRepository
+import com.example.movie.Resources
+import com.example.movie.api.IDetailService
+import com.example.movie.ApiConstants
 import com.example.movie.data.model.Detail
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DetailRepository() : BaseRepository() {
+class DetailRepository @Inject constructor(private val movieDetail: IDetailService) {
 
-    suspend fun getMovieDetail(id: Int) : Response<Detail> = networkService.getDetail(
-        id, ApiConstants.API_KEY
-    )
+    suspend fun fetchMovieById(id: Int) :
+        Resources<Detail> {
+        return withContext(Dispatchers.IO){
+            val response = movieDetail.getMovieDetailedAsync(id,apiKey = ApiConstants.API_KEY).await()
+                Resources.success(response)
+        }
+    }
+
 }
