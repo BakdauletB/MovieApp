@@ -1,15 +1,16 @@
-package com.example.movie.di.modules
+package com.example.movie.di
 
 import android.app.Application
 import android.content.Context
 import com.example.movie.data.repository.DetailRepository
-import com.example.movie.api.IDetailService
-import com.example.movie.api.IMovieService
 import com.example.movie.data.repository.NewsRepository
-import com.example.movie.presentation.movielist.NewsViewModelProviderFactory
-import com.example.movie.presentation.moviedetail.DetailViewModelProviderFactory
+import com.example.movie.presentation.character.NewsViewModelProviderFactory
+import com.example.movie.presentation.detail.DetailViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 
 @Module
@@ -26,12 +27,12 @@ class AppModule(private val context: Context) {
     }
 
     @Provides
-    fun provideNewsRepository(iMovieService: IMovieService): NewsRepository {
-        return NewsRepository(iMovieService)
+    fun provideNewsRepository(): NewsRepository {
+        return NewsRepository()
     }
     @Provides
-    fun provideDetailRepository(iDetailService: IDetailService) : DetailRepository {
-        return DetailRepository(iDetailService)
+    fun provideDetailRepository() : DetailRepository {
+        return DetailRepository()
     }
 
     @Provides

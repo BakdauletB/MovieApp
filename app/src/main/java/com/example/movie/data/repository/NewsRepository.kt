@@ -1,23 +1,17 @@
 package com.example.movie.data.repository
 
-import android.util.Log
-import com.example.movie.Resources
-import com.example.movie.api.IMovieService
-import com.example.movie.data.model.SampleMovieResponse
-import com.example.movie.ApiConstants
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import android.app.Application
+import com.example.movie.data.model.MovieResponse
+import com.example.movie.remote.ApiConstants
+import com.example.movie.utils.base.BaseRepository
+import retrofit2.Response
 
 
-class NewsRepository  @Inject constructor(private val movieService: IMovieService) {
+class NewsRepository() : BaseRepository() {
 
-     suspend fun getMovieData(page: Int) :
-            Resources<SampleMovieResponse> {
-         return withContext(Dispatchers.IO) {
-                 val response = movieService.getMovieAsync(ApiConstants.API_KEY, page).await()
-                 Resources.success(response)
-         }
-    }
+
+    suspend fun getMovie() : Response<MovieResponse> = networkService.getMovie(
+        ApiConstants.API_KEY,1
+    )
 
 }

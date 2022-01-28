@@ -1,7 +1,8 @@
-package com.example.movie.presentation.movielist
+package com.example.movie.presentation.character
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.movie.data.repository.DetailRepository
 import com.example.movie.data.repository.NewsRepository
 
 class NewsViewModelProviderFactory(
@@ -10,4 +11,5 @@ class NewsViewModelProviderFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return NewsViewModel(newsRepository) as T
     }
+
 }

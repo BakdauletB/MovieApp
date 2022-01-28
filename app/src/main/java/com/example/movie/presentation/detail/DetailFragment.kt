@@ -1,9 +1,9 @@
-package com.example.movie.presentation.moviedetail
+package com.example.movie.presentation.detail
 
 import android.os.Bundle
 import android.view.View
 import com.example.movie.R
-import com.example.movie.presentation.base.BaseFragment
+import com.example.movie.utils.base.BaseFragment
 import androidx.activity.addCallback
 import com.example.movie.utils.setImage
 import com.example.movie.data.model.Detail
@@ -35,16 +35,18 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
             navigateTo(R.id.newsFragment)
         }
     }
+
     private fun setDetail() {
         arguments?.getInt("id")?.let {
             setLoading(true)
             vm.fetchMovieById(it)
         }
     }
+
     private fun initObservers() {
         vm.movieDetail.observe(viewLifecycleOwner,{
-            setData(it)
             setLoading(false)
+            setData(it)
         })
     }
     private fun setData(detail: Detail) {
@@ -56,9 +58,12 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
     }
     private fun initViewModel() {
         vm = (activity as FoundationActivity).vm
+
     }
     private fun setLoading(loading: Boolean) {
         loadingViews.visibility = if (loading) View.VISIBLE else View.GONE
 
     }
+
+
 }

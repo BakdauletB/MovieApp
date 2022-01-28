@@ -1,10 +1,10 @@
-package com.example.movie.presentation.moviedetail
+package com.example.movie.presentation.detail
 
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movie.Resources
+import com.example.movie.remote.ApiConstants
 import com.example.movie.data.repository.DetailRepository
 import com.example.movie.data.model.Detail
 import kotlinx.coroutines.launch
@@ -15,15 +15,10 @@ class DetailViewModel(private val repository: DetailRepository) : ViewModel() {
 
     fun fetchMovieById(id :Int){
         viewModelScope.launch {
-            val response = repository.fetchMovieById(id)
-            when (response.status) {
-                Resources.Status.SUCCESS -> {
-                    response.data?.let {
-                        movieDetail.value = it
-                    }
-                }
-                else -> {
-                }
+            val response = repository.getMovieDetail(id)
+            when( response.code()){
+                ApiConstants.RESPONSE_SUCCESS_CODE -> movieDetail.postValue(response.body()!!)
+
             }
         }
     }
